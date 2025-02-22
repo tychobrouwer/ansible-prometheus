@@ -20,6 +20,16 @@
     mode: "0755"
     owner: root
     group: root
+  notify: restart prometheus
+
+- name: Ensure templates are deployed on remote
+  ansible.builtin.template:
+    src: "{{ prometheus_template }}"
+    dest: /etc/prometheus/prometheus.yml
+    mode: "0644"
+    owner: root
+    group: root
+  notify: restart prometheus
 
 - name: Ensure prometheus service file is on remote
   ansible.builtin.template:

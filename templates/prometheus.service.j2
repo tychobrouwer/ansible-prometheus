@@ -3,7 +3,7 @@ After=network.service
 
 [Service]
 WorkingDirectory=
-ExecStart=prometheus
+ExecStart=prometheus --config.file /etc/prometheus/prometheus.yml
 Restart=always
 
 [Install]
