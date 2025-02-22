@@ -1,0 +1,36 @@
+---
+# tasks file for prometheus
+- name: Get latest version of prometheus
+  ansible.builtin.uri:
+    url: "{{ prometheus_latest_url }}"
+    return_content: true
+  register: prometheus_latest
+
+- name: Parse the JSON response to get the download URL for {{ prometheus_arch }}
+  ansible.builtin.set_fact:
+    linux_download_url: "{{ item.browser_download_url }}"
+  loop: "{{ prometheus_latest.json.assets | selectattr('browser_download_url', 'search', 'linux_' + prometheus_arch) | list }}"
+  when: linux_download_url is not defined
+
+- name: Download the latest version of prometheus
+  ansible.builtin.unarchive:
+    src: "{{ linux_download_url }}"
+    dest: "{{ prometheus_dir }}"
+    remote_src: true
+    mode: "0755"
+    owner: root
+    group: root
+
+- name: Ensure prometheus service file is on remote
+  ansible.builtin.template:
+    src: prometheus.service.j2
+    dest: /etc/systemd/system/prometheus.service
+    mode: "0664"
+    owner: root
+    group: root
+
+- name: Ensure prometheus service is enabled and started
+  ansible.builtin.service:
+    name: prometheus
+    state: started
+    enabled: true

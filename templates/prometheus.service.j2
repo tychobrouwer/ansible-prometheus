@@ -1,0 +1,10 @@
+[Unit]
+After=network.service
+
+[Service]
+WorkingDirectory=
+ExecStart=prometheus
+Restart=always
+
+[Install]
+WantedBy=default.target

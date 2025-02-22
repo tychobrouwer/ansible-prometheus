@@ -1,0 +1,7 @@
+---
+# handlers file for prometheus
+- name: restart prometheus
+  ansible.builtin.systemd:
+    name: prometheus
+    state: restarted
+    enabled: true
