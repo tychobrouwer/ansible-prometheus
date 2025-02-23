@@ -29,9 +29,13 @@
     group: root
   notify: Restart Prometheus
 
+- name: Get Prometheus binary path
+  ansible.builtin.set_fact:
+    prometheus_bin: browser_download_url.split('/')[-1].split('.tar.gz')[0]
+
 - name: Ensure Prometheus symlink is created
   ansible.builtin.file:
-    src: "{{ prometheus_dir }}/prometheus/prometheus"
+    src: "{{ prometheus_dir }}/{{ prometheus_bin }}/prometheus"
     dest: /usr/local/bin/prometheus
     state: link
     owner: root
