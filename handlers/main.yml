@@ -6,3 +6,10 @@
     state: restarted
     enabled: true
     daemon_reload: true
+
+- name: Restart PVE Exporter
+  ansible.builtin.systemd:
+    name: pve-exporter
+    state: restarted
+    enabled: true
+    daemon_reload: true
