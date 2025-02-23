@@ -15,10 +15,13 @@
     var: prometheus_latest.json.assets
 
 - debug:
-    var: prometheus_latest.json.assets | selectattr('browser_download_url', 'search', 'linux_' + prometheus_arch
+    var: prometheus_latest.json.assets | selectattr('browser_download_url', 'search', 'linux_' + prometheus_arch)
 
 - debug:
-    var: (prometheus_latest.json.assets | selectattr('browser_download_url', 'search', 'linux_' + prometheus_arch) | list
+    var: prometheus_latest.json.assets | selectattr('browser_download_url', 'search', 'linux_' + prometheus_arch) | list
+
+- debug:
+    var: prometheus_latest.json.assets | selectattr('browser_download_url', 'search', 'linux_' + prometheus_arch) | list | first
 
 - debug:
     var: linux_download_url
