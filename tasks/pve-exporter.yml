@@ -5,7 +5,7 @@
 - name: Install PVE Exporter
   ansible.builtin.pip:
     name: prometheus-pve-exporter
-    extra_args: --break-package-system
+    extra_args: --break-system-packages
     state: present
 
 - name: Ensure PVE Exporter configuration templates are deployed on remote
