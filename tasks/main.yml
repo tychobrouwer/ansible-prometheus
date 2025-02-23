@@ -29,6 +29,14 @@
     group: root
   notify: Restart Prometheus
 
+- name: Ensure Prometheus symlink is created
+  ansible.builtin.file:
+    src: "{{ prometheus_dir }}/prometheus/prometheus"
+    dest: /usr/local/bin/prometheus
+    state: link
+    owner: root
+    group: root
+
 - name: Ensure Prometheus config directory exists
   ansible.builtin.file:
     path: /etc/prometheus/
