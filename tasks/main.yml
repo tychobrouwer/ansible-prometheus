@@ -11,21 +11,6 @@
     linux_download_url: "{{ (prometheus_latest.json.assets | selectattr('browser_download_url', 'search', 'linux-' + prometheus_arch) | list | first).browser_download_url | default('') }}"
   when: prometheus_latest.json is defined
 
-- debug:
-    var: prometheus_latest.json.assets
-
-- debug:
-    var: prometheus_latest.json.assets | selectattr('browser_download_url', 'search', 'linux-' + prometheus_arch)
-
-- debug:
-    var: prometheus_latest.json.assets | selectattr('browser_download_url', 'search', 'linux-' + prometheus_arch) | list
-
-- debug:
-    var: prometheus_latest.json.assets | selectattr('browser_download_url', 'search', 'linux-' + prometheus_arch) | list | first
-
-- debug:
-    var: linux_download_url
-
 - name: Download the latest version of Prometheus
   ansible.builtin.unarchive:
     src: "{{ linux_download_url }}"
