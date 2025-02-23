@@ -13,10 +13,20 @@ Example Playbook
 ----------------
 
 ```yaml
-    - hosts: servers
-      roles:
-         - { role: tychobrouwer.prometheus }
-         - { role: tychobrouwer.prometheus }
+- hosts: servers
+  vars:
+    prometheus_pve_password: "{{ proxmox_ci_password }}"
+    prometheus_pve_user: ci@pve
+
+  roles:
+    - role: tychobrouwer.prometheus
+
+    - role: tychobrouwer.prometheus
+      prometheus_template: templates/prometheus.yml.j2
+      prometheus_pve_exporter: true
+      prometheus_pve_exporter_port: 9221
+      prometheus_pve_verify_ssl: false
+
 ```
 
 License

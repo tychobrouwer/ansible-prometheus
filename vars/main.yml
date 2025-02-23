@@ -3,3 +3,8 @@
 prometheus_arch: amd64
 prometheus_dir: /usr/local/bin
 prometheus_latest_url: https://api.github.com/repos/prometheus/prometheus/releases/latest
+prometheus_template: templates/prometheus.yml.j2
+
+prometheus_pve_exporter: true
+prometheus_pve_exporter_port: 9221
+prometheus_pve_verify_ssl: false

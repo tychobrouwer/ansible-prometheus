@@ -45,3 +45,7 @@
     name: prometheus
     state: started
     enabled: true
+
+- name: Install Prometheus PVE Exporter
+  ansible.builtin.import_tasks: pve-exporter.yml
+  when: prometheus_pve_exporter

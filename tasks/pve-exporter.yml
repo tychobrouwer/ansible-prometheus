@@ -1,0 +1,43 @@
+- name: Install required packages
+  ansible.builtin.apt:
+    name: python3-pip
+
+- name: Install PVE Exporter
+  ansible.builtin.pip:
+    name: prometheus-pve-exporter
+    extra_args: --break-package-system
+
+- name: Ensure PVE Exporter configuration templates are deployed on remote
+  ansible.builtin.template:
+    src: pve-exporter.yml.j2
+    dest: /etc/prometheus/pve-exporter.yml
+    mode: "0644"
+    owner: root
+    group: root
+  notify: Restart PVE Exporter
+
+- name: Create environment configuration file
+  ansible.builtin.copy:
+    content: |
+      CONFIG_FILE=/etc/pve_exporter/config.yaml
+      LISTEN_ADDR={{ ansible_default_ipv4.address | default(ansible_all_ipv4_addresses[0]) }}
+      LISTEN_PORT={{ prometheus_pve_exporter_port }}
+    dest: /etc/default/pve-exporter
+    mode: "0644"
+    owner: root
+    group: root
+
+- name: Ensure PVE Exporter service file is on remote
+  ansible.builtin.template:
+    src: pve-exporter.service.j2
+    dest: /etc/systemd/system/pve-exporter.service
+    mode: "0664"
+    owner: root
+    group: root
+  notify: Restart PVE Exporter
+
+- name: Ensure PVE Exporter service is started and enabled
+  ansible.builtin.systemd:
+    name: pve-exporter
+    state: started
+    enabled: true
