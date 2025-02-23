@@ -11,6 +11,14 @@
     linux_download_url: "{{ (prometheus_latest.json.assets | selectattr('browser_download_url', 'search', 'linux-' + prometheus_arch) | list | first).browser_download_url | default('') }}"
   when: prometheus_latest.json is defined
 
+- name: Ensure Prometheus directory exists
+  ansible.builtin.file:
+    path: "{{ prometheus_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
 - name: Download the latest version of Prometheus
   ansible.builtin.unarchive:
     src: "{{ linux_download_url }}"
@@ -20,6 +28,14 @@
     owner: root
     group: root
   notify: Restart Prometheus
+
+- name: Ensure Prometheus config directory exists
+  ansible.builtin.file:
+    path: /etc/prometheus/
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
 
 - name: Ensure Prometheus configuration templates are deployed on remote
   ansible.builtin.template:
