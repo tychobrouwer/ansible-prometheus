@@ -3,7 +3,7 @@ After=network.service
 
 [Service]
 WorkingDirectory=
-ExecStart=pve_exporter --config.file /etc/prometheus/pve-exporter.yml --web.listen-address={{ ansible_default_ipv4.address | default(ansible_all_ipv4_addresses[0]) }}:{{ prometheus_pve_exporter_port }}
+ExecStart=pve_exporter --config.file /etc/prometheus/pve-exporter.yml --web.listen-address={{ prometheus_pve_exporter_address }}:{{ prometheus_pve_exporter_port }}
 Restart=always
 
 [Install]

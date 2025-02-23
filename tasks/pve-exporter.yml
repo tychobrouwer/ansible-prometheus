@@ -21,7 +21,7 @@
   ansible.builtin.copy:
     content: |
       CONFIG_FILE=/etc/pve_exporter/config.yaml
-      LISTEN_ADDR={{ ansible_default_ipv4.address | default(ansible_all_ipv4_addresses[0]) }}
+      LISTEN_ADDR={{ prometheus_pve_exporter_address }}
       LISTEN_PORT={{ prometheus_pve_exporter_port }}
     dest: /etc/default/pve-exporter
     mode: "0644"
