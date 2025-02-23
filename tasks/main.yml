@@ -1,6 +1,6 @@
 ---
 # tasks file for prometheus
-- name: Get latest version of prometheus
+- name: Get latest version of Prometheus
   ansible.builtin.uri:
     url: "{{ prometheus_latest_url }}"
     return_content: true
@@ -12,7 +12,7 @@
   loop: "{{ prometheus_latest.json.assets | selectattr('browser_download_url', 'search', 'linux_' + prometheus_arch) | list }}"
   when: linux_download_url is not defined
 
-- name: Download the latest version of prometheus
+- name: Download the latest version of Prometheus
   ansible.builtin.unarchive:
     src: "{{ linux_download_url }}"
     dest: "{{ prometheus_dir }}"
@@ -20,27 +20,28 @@
     mode: "0755"
     owner: root
     group: root
-  notify: restart prometheus
+  notify: Restart Prometheus
 
-- name: Ensure templates are deployed on remote
+- name: Ensure Prometheus configuration templates are deployed on remote
   ansible.builtin.template:
     src: "{{ prometheus_template }}"
     dest: /etc/prometheus/prometheus.yml
     mode: "0644"
     owner: root
     group: root
-  notify: restart prometheus
+  notify: Restart Prometheus
 
-- name: Ensure prometheus service file is on remote
+- name: Ensure Prometheus service file is on remote
   ansible.builtin.template:
     src: prometheus.service.j2
     dest: /etc/systemd/system/prometheus.service
     mode: "0664"
     owner: root
     group: root
+  notify: Restart Prometheus
 
 - name: Ensure prometheus service is enabled and started
-  ansible.builtin.service:
+  ansible.builtin.systemd:
     name: prometheus
     state: started
     enabled: true
