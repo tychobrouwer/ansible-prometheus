@@ -26,7 +26,8 @@ Example Playbook
       prometheus_pve_exporter: true
       prometheus_pve_exporter_port: 9221
       prometheus_pve_verify_ssl: false
-
+      prometheus_arch: amd64
+      prometheus_dir: /opt
 ```
 
 License
