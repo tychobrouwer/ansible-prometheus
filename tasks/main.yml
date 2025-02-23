@@ -31,7 +31,7 @@
 
 - name: Get Prometheus binary path
   ansible.builtin.set_fact:
-    prometheus_bin: browser_download_url.split('/')[-1].split('.tar.gz')[0]
+    prometheus_bin: "{{ browser_download_url.split('/')[-1].split('.tar.gz')[0] }}"
 
 - name: Ensure Prometheus symlink is created
   ansible.builtin.file:
