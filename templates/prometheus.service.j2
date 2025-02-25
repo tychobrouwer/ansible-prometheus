@@ -3,7 +3,7 @@ After=network.service
 
 [Service]
 WorkingDirectory=
-ExecStart=prometheus --config.file /etc/prometheus/prometheus.yml
+ExecStart=prometheus --config.file /etc/prometheus/prometheus.yml --storage.tsdb.retention.time={{ prometheus_retention }}
 Restart=always
 
 [Install]
