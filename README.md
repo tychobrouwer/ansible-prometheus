@@ -100,10 +100,3 @@ Here’s an example Ansible playbook demonstrating how to use this role:
 - **Security**: Avoid hardcoding sensitive data (e.g., passwords) in the playbook. Use Ansible Vault or a secrets management tool.
 - **Verification**: After running the playbook, verify Prometheus is running by accessing `http://<server-ip>:9090` in a browser.
 
----
-
-## Author Information
-
-- **Author**: Tycho Brouwer
-- **Repository**: [github.com/tychobrouwer/ansible-role-prometheus](https://github.com/tychobrouwer/ansible-role-prometheus).
-
