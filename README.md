@@ -60,7 +60,6 @@ Here’s an example Ansible playbook demonstrating how to use this role:
 ```yaml
 ---
 - hosts: servers
-  become: yes  # Ensures root privileges
   vars:
     # Proxmox VE exporter credentials
     prometheus_pve_user: "ci@pve"
@@ -81,11 +80,6 @@ Here’s an example Ansible playbook demonstrating how to use this role:
   roles:
     - role: tychobrouwer.prometheus
 ```
-
-### Explanation:
-- `become: yes`: Ensures the playbook runs with sudo privileges, required for installing software and managing services.
-- Variables are defined under `vars` to customize the role’s behavior.
-- The role is invoked with `roles`, and additional variables can be passed directly to override defaults.
 
 ---
 
@@ -108,32 +102,8 @@ Here’s an example Ansible playbook demonstrating how to use this role:
 
 ---
 
-## Troubleshooting
-
-- **Prometheus Fails to Start**: Check the systemd logs with `journalctl -u prometheus.service` for errors (e.g., missing permissions, invalid config).
-- **Exporter Issues**: Ensure `prometheus_pve_user` and `prometheus_pve_password` are correct and that the Proxmox API is reachable.
-- **Port Conflicts**: Verify that the default port (9090 for Prometheus, 9221 for the exporter) is not in use by another service.
-
----
-
-## License
-
-This role is licensed under the [BSD License](https://opensource.org/licenses/BSD-3-Clause). See the `LICENSE` file for details.
-
----
-
 ## Author Information
 
 - **Author**: Tycho Brouwer
-- **Contact**: For questions or contributions, feel free to open an issue or pull request on the role’s repository.
-- **Repository**: [github.com/tychobrouwer/ansible-role-prometheus](https://github.com/tychobrouwer/ansible-role-prometheus) (replace with actual URL if available).
+- **Repository**: [github.com/tychobrouwer/ansible-role-prometheus](https://github.com/tychobrouwer/ansible-role-prometheus).
 
----
-
-## Contributing
-
-Contributions are welcome! Please submit a pull request or open an issue on the repository for bugs, feature requests, or improvements.
-
----
-
-This expanded README provides a detailed guide for users, covering installation, configuration, and troubleshooting while maintaining clarity and structure. Let me know if you'd like further refinements!
