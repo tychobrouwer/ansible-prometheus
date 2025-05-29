@@ -16,6 +16,14 @@
     mode: "0755"
   notify: Restart MinIO
 
+- name: Ensure MinIO symlink is created
+  ansible.builtin.file:
+    src: "{{ prometheus_minio_dir }}/minio"
+    dest: /usr/local/bin/minio
+    state: link
+    owner: root
+    group: root
+
 - name: Ensure MinIO service file is on remote
   ansible.builtin.template:
     src: minio.service.j2
