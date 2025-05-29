@@ -6,8 +6,7 @@ After=network-online.target
 
 [Service]
 Restart=always
-User=mimir
-ExecStart=mimir --log.level $LOG_LEVEL $CUSTOM_ARGS
+ExecStart=mimir --config.file /etc/mimir/mimir.yml
 ExecReload=/bin/kill -HUP $MAINPID
 TimeoutStopSec=20s
 SendSIGKILL=no

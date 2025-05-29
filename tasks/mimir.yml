@@ -33,6 +33,14 @@
     group: root
   notify: Restart Mimir
 
+- name: Ensure Mimir working directory exists
+  ansible.builtin.file:
+    path: /var/lib/mimir/
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
 - name: Ensure Mimir service file is on remote
   ansible.builtin.template:
     src: mimir.service.j2
