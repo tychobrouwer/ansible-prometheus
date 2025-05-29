@@ -15,3 +15,18 @@
     group: root
     mode: "0755"
   notify: Restart MinIO
+
+- name: Ensure MinIO service file is on remote
+  ansible.builtin.template:
+    src: "{{ prometheus_minio_service_template }}"
+    dest: /etc/systemd/system/minio.service
+    mode: "0664"
+    owner: root
+    group: root
+  notify: Restart MinIO
+
+- name: Ensure MinIO service is enabled and started
+  ansible.builtin.systemd:
+    name: minio
+    state: started
+    enabled: true

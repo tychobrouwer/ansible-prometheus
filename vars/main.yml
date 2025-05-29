@@ -19,4 +19,3 @@ prometheus_mimir_template: templates/mimir.yml.j2
 prometheus_minio: true
 prometheus_minio_download_url: https://dl.min.io/server/minio/release/linux-amd64/minio
 prometheus_minio_dir: /opt
-prometheus_minio_template: templates/minio.yml.j2
