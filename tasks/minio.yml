@@ -24,6 +24,23 @@
     owner: root
     group: root
 
+- name: Ensure MinIO config directory exists
+  ansible.builtin.file:
+    path: /etc/minio/
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Ensure MinIO configuration templates are deployed on remote
+  ansible.builtin.template:
+    src: "{{ prometheus_minio_template }}"
+    dest: /etc/minio/minio.yml
+    mode: "0644"
+    owner: root
+    group: root
+  notify: Restart MinIO
+
 - name: Ensure MinIO service file is on remote
   ansible.builtin.template:
     src: minio.service.j2
@@ -32,6 +49,7 @@
     owner: root
     group: root
   notify: Restart MinIO
+  
 
 - name: Ensure MinIO service is enabled and started
   ansible.builtin.systemd:

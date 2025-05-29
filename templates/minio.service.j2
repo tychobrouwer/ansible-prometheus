@@ -4,7 +4,6 @@ Documentation=https://docs.min.io
 Wants=network-online.target
 After=network-online.target
 AssertFileIsExecutable=/usr/local/bin/minio
-AssertFileNotEmpty=/etc/default/minio
 
 [Service]
 Type=notify
@@ -15,8 +14,7 @@ User=minio-user
 Group=minio-user
 ProtectProc=invisible
 
-EnvironmentFile=/etc/default/minio
-ExecStart=minio server $MINIO_OPTS $MINIO_VOLUMES
+ExecStart=minio server --config /etc/minio/minio.yml
 
 # Let systemd restart this service always
 Restart=always
