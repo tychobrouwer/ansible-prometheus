@@ -16,6 +16,8 @@ prometheus_mimir_download_url: https://github.com/grafana/mimir/releases/latest/
 prometheus_mimir_dir: /opt
 prometheus_mimir_template: templates/mimir.yml.j2
 
+prometheus_mimirtool_download_url: https://github.com/grafana/mimir/releases/latest/download/mimirtool-linux-amd64
+
 prometheus_minio: true
 prometheus_minio_download_url: https://dl.min.io/server/minio/release/linux-amd64/minio
 prometheus_minio_dir: /opt

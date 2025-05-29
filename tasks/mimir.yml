@@ -16,6 +16,22 @@
     owner: root
     group: root
 
+- name: Download Mimir executable
+  ansible.builtin.get_url:
+    url: "{{ prometheus_mimirtool_download_url }}"
+    dest: "{{ prometheus_mimir_dir }}/mimirtool"
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Ensure Mimir symlink is created
+  ansible.builtin.file:
+    src: "{{ prometheus_mimir_dir }}/mimirtool"
+    dest: /usr/local/bin/mimirtool
+    state: link
+    owner: root
+    group: root
+
 - name: Ensure Mimir config directory exists
   ansible.builtin.file:
     path: /etc/mimir/
