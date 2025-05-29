@@ -73,6 +73,14 @@
     state: started
     enabled: true
 
+- name: Install and configure MinIO
+  ansible.builtin.import_tasks: minio.yml
+  when: prometheus_minio
+
+- name: Install and configure Mimir
+  ansible.builtin.import_tasks: mimir.yml
+  when: prometheus_mimir
+
 - name: Install Prometheus PVE Exporter
   ansible.builtin.import_tasks: pve-exporter.yml
   when: prometheus_pve_exporter

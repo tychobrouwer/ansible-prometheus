@@ -27,5 +27,3 @@
     owner: root
     group: root
   notify: Restart MinIO
-
-
