@@ -12,11 +12,11 @@ prometheus_pve_exporter_address: 127.0.0.1
 prometheus_pve_verify_ssl: false
 
 prometheus_mimir: true
-prometheus_mimir_url: https://github.com/grafana/mimir/releases/latest/download/mimir-linux-amd64
+prometheus_mimir_download_url: https://github.com/grafana/mimir/releases/latest/download/mimir-linux-amd64
 prometheus_mimir_dir: /opt
 prometheus_mimir_template: templates/mimir.yml.j2
 
 prometheus_minio: true
-prometheus_minio_url: https://api.github.com/repos/minio/minio/releases/latest
+prometheus_minio_download_url: https://dl.min.io/server/minio/release/linux-amd64/minio
 prometheus_minio_dir: /opt
 prometheus_minio_template: templates/minio.yml.j2

@@ -1,7 +1,7 @@
 ---
 - name: Download Mimir executable
   ansible.builtin.get_url:
-    url: "{{ prometheus_mimir_url }}"
+    url: "{{ prometheus_mimir_download_url }}"
     dest: "{{ prometheus_mimir_dir }}/mimir"
     owner: root
     group: root

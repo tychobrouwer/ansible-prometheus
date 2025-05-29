@@ -1,15 +1,4 @@
 ---
-- name: Get latest version of MinIO
-  ansible.builtin.uri:
-    url: "{{ prometheus_minio_url }}"
-    return_content: true
-  register: minio_latest
-
-- name: Parse the JSON response to get the download URL for {{ prometheus_arch }}
-  ansible.builtin.set_fact:
-    linux_minio_download_url: "{{ (minio_latest.json.assets | selectattr('browser_download_url', 'search', 'linux-' + prometheus_arch) | list | first).browser_download_url | default('') }}"
-  when: minio_latest.json is defined
-
 - name: Ensure Minio directory exists
   ansible.builtin.file:
     path: "{{ prometheus_minio_dir }}"
@@ -18,12 +7,11 @@
     group: root
     mode: "0755"
 
-- name: Download the latest version of MinIO
-  ansible.builtin.unarchive:
-    src: "{{ linux_minio_download_url }}"
-    dest: "{{ prometheus_minio_dir }}"
-    remote_src: true
-    mode: "0755"
+- name: Download MinIO executable
+  ansible.builtin.get_url:
+    url: "{{ prometheus_minio_download_url }}"
+    dest: "{{ prometheus_minio_dir }}/mimir"
     owner: root
     group: root
+    mode: "0755"
   notify: Restart MinIO
