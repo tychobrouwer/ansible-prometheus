@@ -10,7 +10,7 @@
 - name: Download MinIO executable
   ansible.builtin.get_url:
     url: "{{ prometheus_minio_download_url }}"
-    dest: "{{ prometheus_minio_dir }}/mimir"
+    dest: "{{ prometheus_minio_dir }}/minio"
     owner: root
     group: root
     mode: "0755"
