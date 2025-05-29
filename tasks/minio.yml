@@ -49,7 +49,6 @@
     owner: root
     group: root
   notify: Restart MinIO
-  
 
 - name: Ensure MinIO service is enabled and started
   ansible.builtin.systemd:
